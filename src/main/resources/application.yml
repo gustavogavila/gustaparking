@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active:
+    - prod
+  
   datasource:
     url: jdbc:postgresql://localhost:5432/gustaparking
     username: postgres
@@ -12,4 +16,23 @@ spring:
       hibernate:
         format_sql: true
         jdbc.lob.non_contextual_creation: true
-      
+
+---
+spring:
+  profiles: prod
+  
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+   
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+ 
