@@ -8,4 +8,6 @@ import com.gustavo.gustaparking.models.Veiculo;
 @Repository
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 
+	Veiculo findByPlaca(String placa);
+
 }

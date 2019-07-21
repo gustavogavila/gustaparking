@@ -23,6 +23,15 @@ public class Veiculo implements Serializable {
 	@Column(name = "placa", nullable = false, length = 7)
 	private String placa;
 
+	public Veiculo() {
+
+	}
+
+	public Veiculo(Long id, String placa) {
+		this.id = id;
+		this.placa = placa;
+	}
+
 	public Long getId() {
 		return id;
 	}

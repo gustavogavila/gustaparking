@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.gustavo.gustaparking.models.enums.Situacao;
@@ -25,11 +23,16 @@ public class Vaga implements Serializable {
 	private Long id;
 
 	@Column(name = "situacao", nullable = false)
-	private Situacao situacao;
-	
-	@ManyToOne
-	@JoinColumn(name = "estacionamento_id")
-	private Estacionamento estacionamento;
+	private Integer situacao;
+
+	public Vaga() {
+
+	}
+
+	public Vaga(Long id, Situacao situacao) {
+		this.id = id;
+		this.situacao = situacao.getCodigo();
+	}
 
 	public Long getId() {
 		return id;
@@ -40,11 +43,11 @@ public class Vaga implements Serializable {
 	}
 
 	public Situacao getSituacao() {
-		return situacao;
+		return Situacao.toEnum(situacao);
 	}
 
 	public void setSituacao(Situacao situacao) {
-		this.situacao = situacao;
+		this.situacao = situacao.getCodigo();
 	}
 
 }
