@@ -18,6 +18,6 @@ public interface OcupacaoRepository extends JpaRepository<Ocupacao, Long> {
 
 	@Query(value = "SELECT * FROM ocupacao o WHERE (o.data_hora_entrada BETWEEN :inicioDia AND :finalDia) AND (o.data_hora_saida BETWEEN :inicioDia AND :finalDia);",
 			nativeQuery = true)
-	List<Ocupacao> findByDay(@Param("inicioDia") LocalDateTime inicioDia, @Param("finalDia") LocalDateTime finalDia);
+	List<Ocupacao> findByPeriod(@Param("inicioDia") LocalDateTime inicioDia, @Param("finalDia") LocalDateTime finalDia);
 
 }

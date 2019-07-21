@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gustavo.gustaparking.models.Ocupacao;
 import com.gustavo.gustaparking.models.Veiculo;
+import com.gustavo.gustaparking.models.dtos.FinanceiroPeriodo;
 import com.gustavo.gustaparking.models.dtos.PermanenciaMediaDiaria;
+import com.gustavo.gustaparking.models.dtos.PermanenciaMediaPeriodo;
 import com.gustavo.gustaparking.services.OcupacaoService;
 
 @RestController
@@ -32,10 +34,26 @@ public class OcupacaoController {
 		Ocupacao depart = service.depart(veiculo);
 		return ResponseEntity.ok(depart);
 	}
-	
+
 	@GetMapping("/permanenciamediadiaria")
 	public ResponseEntity<PermanenciaMediaDiaria> relatorioPermanenciaMediaDiaria(@RequestParam String data) {
 		PermanenciaMediaDiaria permanenciaMediaDiaria = service.getRelatorioPermanenciaMediaDiaria(data);
 		return ResponseEntity.ok(permanenciaMediaDiaria);
 	}
+
+	@GetMapping("/permanenciamediaperiodo")
+	public ResponseEntity<PermanenciaMediaPeriodo> relatorioPermanenciaMediaPeriodo(@RequestParam String dataInicio,
+			@RequestParam String dataFinal) {
+		PermanenciaMediaPeriodo permanenciaMediaPeriodo = service.getRelatorioPermanenciaMediaPeriodo(dataInicio,
+				dataFinal);
+		return ResponseEntity.ok(permanenciaMediaPeriodo);
+	}
+
+	@GetMapping("/financeiro")
+	public ResponseEntity<FinanceiroPeriodo> relatorioFinanceiroPeriodo(@RequestParam String dataInicio,
+			@RequestParam String dataFinal) {
+		FinanceiroPeriodo financeiroPeriodo = service.getRelatorioFinanceiroPeriodo(dataInicio, dataFinal);
+		return ResponseEntity.ok(financeiroPeriodo);
+	}
+
 }
