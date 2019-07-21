@@ -88,11 +88,7 @@ public class OcupacaoService {
 		
 		long minutosDePermanencia = ChronoUnit.MINUTES.between(dataHoraEntrada, dataHoraSaida);
 
-		double horasDePermanencia = Math.round(minutosDePermanencia / 60.0);
-
-		if (minutosDePermanencia % 60 != 0) {
-			horasDePermanencia += 1;
-		}
+		double horasDePermanencia = Math.ceil(minutosDePermanencia / 60.0);
 
 		return valorPorHora.multiply(new BigDecimal(horasDePermanencia));
 	}
