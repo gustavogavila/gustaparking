@@ -81,7 +81,7 @@ public class OcupacaoService {
 
 		LocalDateTime entradaMock = dataHoraEntrada.minusHours(3L);
 		LocalDateTime saidaMock = dataHoraSaida.minusMinutes(97);
-
+// TODO Retirar os mocks antes de fazer deploy.
 		long minutosDePermanencia = ChronoUnit.MINUTES.between(entradaMock, saidaMock);
 
 		double horasDePermanencia = Math.round(minutosDePermanencia / 60.0);
