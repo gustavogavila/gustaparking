@@ -14,6 +14,7 @@ import com.gustavo.gustaparking.models.Ocupacao;
 import com.gustavo.gustaparking.models.ParametroSistema;
 import com.gustavo.gustaparking.models.Vaga;
 import com.gustavo.gustaparking.models.Veiculo;
+import com.gustavo.gustaparking.models.dtos.PermanenciaMediaDiaria;
 import com.gustavo.gustaparking.models.enums.Situacao;
 import com.gustavo.gustaparking.repositories.OcupacaoRepository;
 import com.gustavo.gustaparking.repositories.ParametroSistemaRepository;
@@ -90,6 +91,32 @@ public class OcupacaoService {
 		}
 
 		return valorPorHora.multiply(new BigDecimal(horasDePermanencia));
+	}
+
+	public PermanenciaMediaDiaria getRelatorioPermanenciaMediaDiaria(String data) {
+		LocalDateTime inicioDia = toLocalDateTime(data, 0, 0, 0);
+		LocalDateTime finalDia = toLocalDateTime(data, 23, 59, 59);
+		try {
+			List<Ocupacao> ocupacoes = repo.findByDay(inicioDia, finalDia);			
+			long totalDeSegundos = 0;
+			for (Ocupacao o : ocupacoes) {
+				totalDeSegundos += ChronoUnit.SECONDS.between(o.getDataHoraEntrada(), o.getDataHoraSaida());
+			}
+			double mediaEmSegundos = totalDeSegundos / ocupacoes.size();
+			double mediaEmHoras = mediaEmSegundos / 3600;
+			
+			return new PermanenciaMediaDiaria(mediaEmHoras);
+		} catch (Exception e) {
+			throw new RuntimeException("Não existem registros nesse dia");
+		}
+	}
+	
+	private LocalDateTime toLocalDateTime(String data, int...tempo ) {
+		String [] arrayData = data.split("-");
+		int dia = Integer.parseInt(arrayData[0]);
+		int mes = Integer.parseInt(arrayData[1]);
+		int ano = Integer.parseInt(arrayData[2]);
+		return LocalDateTime.of(ano, mes, dia, tempo[0], tempo[1], tempo[2]);
 	}
 
 }
