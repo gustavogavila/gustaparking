@@ -1,5 +1,5 @@
 # Gustaparking REST API
-### Vehicle parking management system.
+Vehicle parking management system.
 
 ## Technologies
 - Backend: Java 8 with Spring Framework 2.1.6.RELEASE
